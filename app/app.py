@@ -125,13 +125,16 @@ def authenication():
 def getGradeCSV(id, pw):
     # process to go to page
     try:
+        print(pycolor.CYAN + '----------Continue to getting grades----------\n' + pycolor.END)
         warnings.simplefilter('ignore', DeprecationWarning)
         opt = Options()
         opt.add_argument('--headless')
         dlOptions(opt)
         detectDriver()
         driver = webdriver.Chrome(executable_path = DRIVER_PATH, options = opt)
+        print(pycolor.CYAN + '!--- Loading v-conn' + pycolor.END)
         driver.get(VCONN)
+        print(pycolor.CYAN + '!--- Loaded v-conn successfully' + pycolor.END)
         driver.set_window_size(1200, 980)
         time.sleep(WAIT_TIME)
     except FileNotFoundError:
@@ -141,30 +144,36 @@ def getGradeCSV(id, pw):
         driverError()
         sys.exit()
 
-
     # process to login
+    print(pycolor.CYAN + '!--- Trying to login' + pycolor.END)
     id_field = driver.find_element_by_xpath('//*[@id="username"]')
     id_field.send_keys(id)
     pw_field = driver.find_element_by_xpath('//*[@id="password_input"]')
     pw_field.send_keys(pw)
     driver.find_element_by_xpath('//*[@id="form_table"]/tbody/tr[3]/td/div/table/tbody/tr[4]/td/input').click()
+    print(pycolor.CYAN + '!--- Logged in successfully' + pycolor.END)
     time.sleep(3)
 
     # After into SSL VPN Service
+    print(pycolor.CYAN + '!--- Trying to open NUWeb' + pycolor.END)
     dropdown = driver.find_element_by_xpath('//*[@id="protocol_selector"]')
     Select(dropdown).select_by_index(1)
     addr = driver.find_element_by_xpath('//*[@id="unicorn_form_url"]')
     addr.send_keys(NUWEB[8:])
     driver.find_element_by_xpath('//*[@id="browse_text"]').click()
     time.sleep(WAIT_TIME)
+    print(pycolor.CYAN + '!--- Loaded NUWeb successfully' + pycolor.END)
 
     # After CAS
+    print(pycolor.CYAN + '!--- Trying to login' + pycolor.END)
     id_field = driver.find_element_by_name('username')
     id_field.send_keys(id)
     pw_field = driver.find_element_by_name('password')
     pw_field.send_keys(pw)
     driver.find_element_by_xpath('/html/body/div[2]/form/div[2]/div[1]/div[2]/a').click()
+    print(pycolor.CYAN + '!--- Logged in successfully' + pycolor.END)
     time.sleep(WAIT_TIME)
+    print(pycolor.CYAN + '!--- Loading grades data' + pycolor.END)
     driver.find_element_by_id('tab-si').click()
     time.sleep(WAIT_TIME)
     driver.find_element_by_xpath('/html/body/div[6]/div/div[2]/div[2]/div/div/ul/li[2]/span').click()
@@ -175,12 +184,15 @@ def getGradeCSV(id, pw):
     driver.find_element_by_xpath('//*[@id="taniReferListForm"]/p[3]/input[1]').click()
     time.sleep(WAIT_TIME)
     driver.switch_to.default_content()
+    print(pycolor.CYAN + '!--- Downloaded \'kakuteiSeisekiCsv.csv\'' + pycolor.END)
     driver.find_element_by_xpath('/html/body/div[6]/div/div[1]/div[2]/div/div/div[3]/div[2]/div/div[2]/ul[6]/li[1]').click()
     time.sleep(WAIT_TIME)
+    print(pycolor.CYAN + '!--- Logged out NUWeb successfully' + pycolor.END)
     driver.get(VCONN)
     time.sleep(WAIT_TIME)
     driver.find_element_by_xpath('//*[@id="logout_text"]').click()
     time.sleep(WAIT_TIME)
+    print(pycolor.CYAN + '!--- Logged out v-conn successfully' + pycolor.END)
     driver.service.stop()
 
 
@@ -206,9 +218,10 @@ def moveWorkdir(id):
     except FileExistsError:
         dst += '_tmp'
         os.makedirs(dst)
-
+    print(pycolor.CYAN + '!!-- Made a directory to Desktop' + pycolor.END)
     # Move to dst
     shutil.move(src, dst)
+    print(pycolor.CYAN + '!!-- Moved csv data to the directory on Desktop\n' + pycolor.END)
 
     # Return value is source file's name
     return (dst + '/')
@@ -230,8 +243,6 @@ def main():
         NU_ID, NU_PASS = authenication()
     except TypeError:
         sys.exit()
-    else:
-        print('Continue to get CSV')
 
     # Download csv
     getGradeCSV(NU_ID, NU_PASS)
