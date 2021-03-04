@@ -8,7 +8,7 @@ This app needs GoogleChrome. Supports for Safari, Firefox and Microsoft Edge is 
 ## Installation
 1. Install GoogleChrome (This version needs GoogleChrome)
 
-2. Check your Chrome's version, and get suitable chromedriver from https://chromedriver.chromium.org/downloads
+2. Check your Chrome's version, and get suitable chromedriver from [Chromedriver(chromium)](https://chromedriver.chromium.org/downloads){:target="_blank"}
 
 3. execute following:
 ```
