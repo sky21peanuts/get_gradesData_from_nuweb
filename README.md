@@ -32,4 +32,4 @@ Go to getGrade/app/ and execute app.py, and  commandline starts. Then only you p
 ## Caution
 - This app depends on your internet connection speed. If some error(such as NoSuchElementException..) occurd, edit app/app.py and let `WAIT_TIME` be bigger.
 
-- By using `--headless` option, chrome window is hidden.
+- By using `--headless` option, chrome window will be hidden.
