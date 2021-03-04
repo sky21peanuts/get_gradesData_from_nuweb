@@ -1,9 +1,9 @@
-# getGrade
+# get_gradesData_from_nuweb
 
 ## Support
 Windows, MacOS(Intel, M1).
 
-This app needs GoogleChrome.
+This app needs GoogleChrome. Supports for Safari, Firefox and Microsoft Edge is not provided.
 
 ## Installation
 1. Install GoogleChrome (This version needs GoogleChrome)
