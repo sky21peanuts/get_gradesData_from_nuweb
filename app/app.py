@@ -25,6 +25,7 @@ DL_DIR = '/Users/' + os.getlogin() + '/Downloads/'
 WAIT_TIME = 5
 
 
+# Log color setting
 class pycolor:
     BLACK = '\033[30m'
     RED = '\033[31m'
@@ -41,6 +42,7 @@ class pycolor:
     REVERCE = '\033[07m'
 
 
+# Detecting OS
 def checkOS():
     if os.name == 'posix':
         return 0
@@ -50,6 +52,7 @@ def checkOS():
         return 99
 
 
+# Changing driver name by checkOS()
 def detectDriver():
     if checkOS() == 1:
         DRIVER_PATH.replace('chromedriver', 'chromedriver.exe')
@@ -57,6 +60,7 @@ def detectDriver():
         pass
 
 
+# Changing download directory by checkOS()
 def dlOptions(opt):
     global DL_DIR
     if checkOS() == 1:
@@ -71,6 +75,7 @@ def dlOptions(opt):
         })
 
 
+# Authenicationg before access and download
 def authenication():
     # Hide warning : DeprecationWarning by option
     try:
@@ -122,6 +127,7 @@ def authenication():
             continue
 
 
+# Main block for this app
 def getGradeCSV(id, pw):
     # process to go to page
     try:
@@ -196,11 +202,13 @@ def getGradeCSV(id, pw):
     driver.service.stop()
 
 
+# Echo driveer error if chromedriver is in appropriate directory
 def driverError():
     print(pycolor.YELLOW + '\nPlease put a chromedriver as following' + pycolor.END)
     print('--\n |\n |--driver\n |   |-chromedriver\n |\n |--app\n     |-app.py\n')
 
 
+# csv is downloaded default download directory, so making working directory and move to there
 def moveWorkdir(id):
     dateNow = dt.now()
     Username = os.getlogin()
@@ -227,6 +235,7 @@ def moveWorkdir(id):
     return (dst + '/')
 
 
+# Here is an encoding option, to use utf-8 encoding for mac
 def transcode(input, output):
     # Convert encoding from cp932 to utf-8
     with codecs.open(input, 'r', 'cp932') as fin:
@@ -237,6 +246,7 @@ def transcode(input, output):
         fin.close()
 
 
+# Main block
 def main():
     # Getting nu_id, nu_passwd
     try:
