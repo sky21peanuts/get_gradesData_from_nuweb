@@ -12,7 +12,7 @@ This app needs GoogleChrome. Supports for Safari, Firefox and Microsoft Edge is 
 
 3. execute following:
 ```
-git clone https://github.com/sky21peanuts/getGrade.git
+git clone https://github.com/sky21peanuts/get_gradesData_from_nuweb.git
 ```
 
 4. Put chromedriver under ./driver
